@@ -1,10 +1,6 @@
 pragma solidity >=0.4.22 <0.6.0;
 
-import "./SafeMath.sol";
-
 contract RewardPoints {
-
-    using SafeMath for uint;
     address private owner;
     mapping(address => bool) private isAdmin; // Quick way to check if an addr is an Admin
 
@@ -119,7 +115,6 @@ contract RewardPoints {
         // TODO: your code here
         isAdmin[_admin] = true;
         emit AddedAdmin(_admin);
-        
     }
 
     function removeAdmin(address _admin) external onlyOwner {
@@ -142,7 +137,7 @@ contract RewardPoints {
         
         Merchant memory newMerchant;
         newMerchant.id = newID;
-        newMerchant.address = _merchant;
+        newMerchant.addr = _merchant;
         newMerchant.isApproved = true;
 
         merchants.push(newMerchant);
@@ -160,7 +155,6 @@ contract RewardPoints {
         merchants[_id].isApproved = false;
 
         emit BannedMerchant(_id);
-        
     }
 
     function approveMerchant(uint _id) external onlyAdmin {
@@ -180,7 +174,7 @@ contract RewardPoints {
 
         User memory newUser;
         newUser.id = userID;
-        newUser.address = _user;
+        newUser.addr = _user;
         newUser.isApproved = true;
         newUser.totalEarnedPoints = 0;
         newUser.totalReedemedPoints = 0;
@@ -231,7 +225,7 @@ contract RewardPoints {
 
         merchants[merchantID].isOperator[_operator] = true;
 
-        addrToMerchantID[_operator] = merchantID;
+        addrToMerchantId[_operator] = merchantID;
 
         emit AddedOperator(merchantID, _operator);
     }
@@ -243,7 +237,7 @@ contract RewardPoints {
 
         merchants[merchantID].isOperator[_operator] = false;
 
-        addrToMerchantID[_operator] = 0;
+        addrToMerchantId[_operator] = 0;
 
         emit RemovedOperator(merchantID, _operator);
     }
@@ -295,7 +289,7 @@ contract RewardPoints {
         require (getUserEarnedPointsAtMerchant(msg.sender,_mId).sub(getUserRedeemedPointsAtMerchant(msg.sender,_mId)) >= _points);
 
         users[userId].totalReedemedPoints.add(_points);
-        users[userId].merchantToRedeemedPts[_mId].add(_points);
+        users[userId].merchantToRedeemedPts.add(_points);
 
         emit RedeemedPoints(msg.sender, _mId, _points);
     }
