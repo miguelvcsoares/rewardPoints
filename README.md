@@ -1,1 +1,1 @@
-# rewardPoints
+# Reward Points
