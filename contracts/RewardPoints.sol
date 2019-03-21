@@ -142,7 +142,7 @@ contract RewardPoints {
         
         Merchant memory newMerchant;
         newMerchant.id = newID;
-        newMerchant.address = _merchant;
+        newMerchant.addr = _merchant;
         newMerchant.isApproved = true;
 
         merchants.push(newMerchant);
@@ -180,7 +180,7 @@ contract RewardPoints {
 
         User memory newUser;
         newUser.id = userID;
-        newUser.address = _user;
+        newUser.addr = _user;
         newUser.isApproved = true;
         newUser.totalEarnedPoints = 0;
         newUser.totalReedemedPoints = 0;
@@ -231,7 +231,7 @@ contract RewardPoints {
 
         merchants[merchantID].isOperator[_operator] = true;
 
-        addrToMerchantID[_operator] = merchantID;
+        addrToMerchantId[_operator] = merchantID;
 
         emit AddedOperator(merchantID, _operator);
     }
@@ -243,7 +243,7 @@ contract RewardPoints {
 
         merchants[merchantID].isOperator[_operator] = false;
 
-        addrToMerchantID[_operator] = 0;
+        addrToMerchantId[_operator] = 0;
 
         emit RemovedOperator(merchantID, _operator);
     }
