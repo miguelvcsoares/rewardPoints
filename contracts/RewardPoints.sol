@@ -107,8 +107,8 @@ contract RewardPoints {
     constructor() public {
         // Do not use ID 0 for first user and merchant to avoid returning invalid
         // first merchant/user when looking it up with addrToMerchantID mapping
-        merchants.push(Merchant(0, 0, false));
-        users.push(User(0, 0, false, 0, 0));
+        merchants.push(Merchant(0, address(0), false));
+        users.push(User(0, address(0), false, 0, 0));
         owner = msg.sender;
     }
 
@@ -344,5 +344,4 @@ contract RewardPoints {
         require(merchantExist(_mId));
         return users[uId].merchantToRedeemedPts[_mId];
     }
-
 }
